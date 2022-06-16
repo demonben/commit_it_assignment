@@ -10,18 +10,35 @@ const initialState = {
   name: "",
   phoneNumber: "",
   password: "",
+  confirmPassword: "",
 };
 
 const Form = () => {
   const [values, setValues] = useState(initialState);
   const dispatch: any = useDispatch();
+  const pattern = new RegExp("^(?=.*[a-z])(?=.*\\d).+$");
 
   const submitForm = () => {
     values.id = new Date().toISOString();
-    dispatch(incrementAsync(values));
+    validateInput();
+
+    if (values.password && values.password === values.confirmPassword) {
+      dispatch(incrementAsync(values));
+    } else {
+      alert("Please confirm password");
+    }
   };
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+  const validateInput = () => {
+    if (values.password.length > 6 && pattern.test(values.password)) {
+    } else {
+      alert(
+        "Password should includes 6-12 chars uppercase letter and special char"
+      );
+      return;
+    }
   };
 
   return (
@@ -36,7 +53,6 @@ const Form = () => {
         autoComplete="off"
       >
         <TextField
-          required
           id="outlined-required"
           onChange={handleChange}
           name="name"
@@ -45,7 +61,6 @@ const Form = () => {
           defaultValue={values.name}
         />
         <TextField
-          required
           id="outlined-required"
           onChange={handleChange}
           name="phoneNumber"
@@ -54,18 +69,20 @@ const Form = () => {
           defaultValue={values.phoneNumber}
         />
         <TextField
-          required
           id="outlined-required"
-          label="Password"
           onChange={handleChange}
           name="password"
+          label="Password"
+          inputProps={{ maxLength: 12 }}
           defaultValue={values.password}
         />
         <TextField
-          required
           id="outlined-required"
+          onChange={handleChange}
+          name="confirmPassword"
           label="Confirm Password"
-          defaultValue=""
+          inputProps={{ maxLength: 12 }}
+          defaultValue={values.confirmPassword}
         />
         <div className="btn">
           <Button onClick={submitForm} variant="contained">
