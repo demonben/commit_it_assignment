@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
+import { changeUser } from "../redux/userSlice";
 
 const initialState = {
   id: "",
@@ -12,9 +14,11 @@ const initialState = {
 
 const Form = () => {
   const [values, setValues] = useState(initialState);
+  const dispatch = useDispatch();
 
   const submitForm = () => {
-    console.log(`form submitted with ${values.name}`);
+    values.id = new Date().toISOString();
+    dispatch(changeUser(values));
   };
   const handleChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -43,7 +47,7 @@ const Form = () => {
           required
           id="outlined-required"
           onChange={handleChange}
-          name="lastName"
+          name="phoneNumber"
           label="Phone Number"
           defaultValue={values.phoneNumber}
         />
