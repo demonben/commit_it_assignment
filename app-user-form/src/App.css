@@ -12,7 +12,12 @@
   width: 100px;
 }
 .card-name{
-  margin-right: 10px;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 120%;
+}
+.card-value{
+  margin-top: 4px;
 }
 
 

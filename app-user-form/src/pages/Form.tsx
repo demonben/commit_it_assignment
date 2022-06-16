@@ -20,25 +20,22 @@ const Form = () => {
 
   const submitForm = () => {
     values.id = new Date().toISOString();
-    validateInput();
 
-    if (values.password && values.password === values.confirmPassword) {
-      dispatch(incrementAsync(values));
-    } else {
-      alert("Please confirm password");
-    }
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-  const validateInput = () => {
-    if (values.password.length > 6 && pattern.test(values.password)) {
-    } else {
+    if (values.password.length < 6 && !pattern.test(values.password)) {
       alert(
         "Password should includes 6-12 chars uppercase letter and special char"
       );
       return;
     }
+    if (values.password !== values.confirmPassword) {
+      alert("Please confirm password");
+      return;
+    }
+    dispatch(incrementAsync(values));
+    alert("Form submitted");
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   return (

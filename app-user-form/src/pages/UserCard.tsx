@@ -12,16 +12,16 @@ const UserCard = () => {
       <Card>
         <CardContent>
           <div className="user-card">
-            <div className="card-name">
-              <Typography>User name:</Typography>
+            <div >
+              <span className="card-name">User name:</span>
             </div>
-            <Typography> {user.name} </Typography>
+            <span className="card-value"> {user.name} </span>
           </div>
           <div className="user-card">
-            <div className="card-name">
-              <Typography>Phone Number:</Typography>
+            <div >
+              <span className="card-name">Phone Number:</span>
             </div>
-            <Typography> {user.phoneNumber}</Typography>
+            <span className="card-value"> {user.phoneNumber}</span >
           </div>
         </CardContent>
       </Card>
