@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchUser } from "./userAPI";
 
-interface User {
+export interface User {
   id: string;
   name: string;
   phoneNumber: number | null;
   password: any;
+  status: "idle" | "loading" | "failed";
 }
 
 const initialState: User = {
@@ -12,7 +14,16 @@ const initialState: User = {
   name: "",
   phoneNumber: null,
   password: null,
+  status: "idle",
 };
+
+export const incrementAsync = createAsyncThunk(
+  "counter/fetchCount",
+  async (user: any) => {
+    const response = await fetchUser(user);
+    return response.data;
+  }
+);
 
 const userSlice = createSlice({
   name: "users",
@@ -24,6 +35,22 @@ const userSlice = createSlice({
       state.phoneNumber = action.payload.phoneNumber;
       state.password = action.payload.password;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(incrementAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(incrementAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.id = action.payload.id;
+        state.name = action.payload.name;
+        state.phoneNumber = action.payload.phoneNumber;
+        state.password = action.payload.password;
+      })
+      .addCase(incrementAsync.rejected, (state) => {
+        state.status = "failed";
+      });
   },
 });
 
