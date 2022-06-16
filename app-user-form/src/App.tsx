@@ -4,7 +4,8 @@ import TabPanel from "./components/TabPanel";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-
+import UserCard from "./pages/UserCard";
+import Form from "./pages/Form";
 
 function a11yProps(index: any) {
   return {
@@ -33,8 +34,10 @@ function App() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
+          <Form />
         </TabPanel>
         <TabPanel value={value} index={1}>
+          <UserCard />
         </TabPanel>
       </Box>
     </div>
