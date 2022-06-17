@@ -5,7 +5,7 @@ export interface User {
   id: string;
   name: string;
   phoneNumber: number | null;
-  password: any;
+  password: string | null;
   status: string;
 }
 

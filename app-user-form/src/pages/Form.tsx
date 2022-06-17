@@ -40,7 +40,7 @@ const Form = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  
+
   const handleAlert = (msg: string) => {
     alert(msg);
   };
