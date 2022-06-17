@@ -3,19 +3,21 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { incrementAsync } from "../redux/userSlice";
+import { updateAsync } from "../redux/userSlice";
+import { AppDispatch } from "../redux";
 
 const initialState = {
   id: "",
   name: "",
-  phoneNumber: "",
+  phoneNumber: null,
   password: "",
   confirmPassword: "",
+  status: "idle",
 };
 
 const Form = () => {
   const [values, setValues] = useState(initialState);
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const pattern = new RegExp("^(?=.*[a-z])(?=.*\\d).+$");
 
   const submitForm = () => {
@@ -31,7 +33,7 @@ const Form = () => {
       alert("Please confirm password");
       return;
     }
-    dispatch(incrementAsync(values));
+    dispatch(updateAsync(values));
     alert("Form submitted");
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

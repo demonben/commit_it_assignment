@@ -6,7 +6,7 @@ export interface User {
   name: string;
   phoneNumber: number | null;
   password: any;
-  status: "idle" | "loading" | "failed";
+  status: string;
 }
 
 const initialState: User = {
@@ -17,9 +17,9 @@ const initialState: User = {
   status: "idle",
 };
 
-export const incrementAsync = createAsyncThunk(
+export const updateAsync = createAsyncThunk(
   "counter/fetchCount",
-  async (user: any) => {
+  async (user: User) => {
     const response = await fetchUser(user);
     return response.data;
   }
@@ -38,17 +38,17 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(incrementAsync.pending, (state) => {
+      .addCase(updateAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(incrementAsync.fulfilled, (state, action) => {
+      .addCase(updateAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.id = action.payload.id;
         state.name = action.payload.name;
         state.phoneNumber = action.payload.phoneNumber;
         state.password = action.payload.password;
       })
-      .addCase(incrementAsync.rejected, (state) => {
+      .addCase(updateAsync.rejected, (state) => {
         state.status = "failed";
       });
   },
