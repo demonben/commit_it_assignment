@@ -11,15 +11,11 @@ const UserCard = () => {
       <Card>
         <CardContent>
           <div className="user-card">
-            <div>
-              <span className="card-name">User name:</span>
-            </div>
+            <span className="card-name">User name:</span>
             <span className="card-value"> {user.name} </span>
           </div>
           <div className="user-card">
-            <div>
-              <span className="card-name">Phone Number:</span>
-            </div>
+            <span className="card-name">Phone Number:</span>
             <span className="card-value"> {user.phoneNumber}</span>
           </div>
         </CardContent>
